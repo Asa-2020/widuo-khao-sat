@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>WI.DUO Bên chén trà kể chuyện</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lexend:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: một cột kiểu app, mỗi màn một câu hỏi; cuối cùng là bản tóm tắt xếp theo mẫu ICP để sao chép */
+:root{
+  --paper:#F7F5EF; --card:#FFFFFF; --ink:#1B2A4A; --muted:#55617A; --line:#E1E5EC;
+  --teal:#1D9E75; --teal-soft:#E1F5EE; --teal-mid:#9FE1CB; --amber:#F2B04D; --amber-soft:#FDF1DC; --amber-ink:#7A4E0C; --focus:#1D9E75;
+  --f-display:"Lexend","Be Vietnam Pro","Segoe UI",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#101624; --card:#182235; --ink:#E6ECF5; --muted:#A3B0C6; --line:#2A3650;
+  --teal:#5DCAA5; --teal-soft:#15322B; --teal-mid:#1F5747; --amber:#F2B04D; --amber-soft:#3A2C14; --amber-ink:#FAC775; --focus:#5DCAA5; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#101624; --card:#182235; --ink:#E6ECF5; --muted:#A3B0C6; --line:#2A3650;
+  --teal:#5DCAA5; --teal-soft:#15322B; --teal-mid:#1F5747; --amber:#F2B04D; --amber-soft:#3A2C14; --amber-ink:#FAC775; --focus:#5DCAA5; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;padding-inline:16px;padding-block:20px 48px}
+.app{max-width:600px;margin:0 auto;display:grid;gap:16px}
+header{display:flex;gap:12px;align-items:center}
+.brand{font-family:var(--f-display);font-weight:600;font-size:19px;line-height:1.25}
+.brand small{display:block;font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--muted)}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--teal);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;display:grid;gap:14px;min-width:0}
+.part{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(21px,5vw,25px);line-height:1.3;margin:0;text-wrap:balance}
+.lead{color:var(--muted);margin:0}
+.opt-tag{font-size:12px;color:var(--amber-ink);background:var(--amber-soft);border-radius:6px;padding:1px 7px;justify-self:start}
+textarea,input[type="text"],select{font:inherit;width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card);color:var(--ink)}
+textarea{min-height:150px;resize:vertical}
+textarea:focus,input:focus,select:focus,button:focus-visible{outline:2.5px solid var(--focus);outline-offset:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:480px){.grid2{grid-template-columns:1fr}}
+label{font-weight:600;font-size:14.5px;display:grid;gap:6px}
+.row{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:12px 20px;background:var(--teal);color:#fff;cursor:pointer}
+.ghost{font:inherit;border:0;background:none;color:var(--muted);cursor:pointer;padding:8px 4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:14.5px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer}
+.chip{text-align:left}
+.chip[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);font-weight:600}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px}
+.check input{margin-top:5px;accent-color:var(--teal)}
+.err{color:#C0472B;font-size:13.5px;margin:0}
+.sum h2{font-family:var(--f-display);font-size:16px;font-weight:600;margin:14px 0 4px}
+.sum p{margin:0 0 8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.sum .q{font-size:13.5px;color:var(--muted);margin:0}
+.sum .empty{color:var(--muted);font-style:italic}
+.out{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:4px 16px 12px;max-height:520px;overflow:auto}
+.ok{color:var(--teal);font-size:14px;margin:0}
+.home{font-size:13.5px;font-weight:600;color:var(--teal);text-decoration:none;border:1.5px solid var(--teal-mid);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.home:hover{background:var(--teal-soft)}
+.voice{border:1px dashed var(--teal-mid);border-radius:12px;background:var(--teal-soft)}
+.voice summary{cursor:pointer;padding:10px 14px;font-weight:600;font-size:14.5px;color:var(--teal);display:flex;align-items:center;gap:8px;list-style:none}
+.voice summary::-webkit-details-marker{display:none}
+.voice summary svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.voice-body{padding:0 14px 12px;font-size:14.5px}
+.voice-body p{margin:0 0 6px}
+.voice-body ul{margin:0 0 6px;padding-left:18px}
+.foot{font-size:13px;color:var(--muted);text-align:center;margin:0}
+.mic{font:inherit;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1.5px dashed var(--teal);background:var(--teal-soft);color:var(--teal);border-radius:12px;padding:12px;cursor:pointer}
+.mic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mic[aria-pressed="true"]{background:#C0472B;border-color:#C0472B;color:#fff}
+.mic-note{font-size:13px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <svg width="42" height="42" viewBox="0 0 100 100" aria-hidden="true" style="flex:none"><circle cx="50" cy="50" r="46" fill="#1B2A4A"/><path d="M23.6 41 A28 28 0 0 1 76.4 41" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/><path d="M76.4 59 A28 28 0 0 1 23.6 59" fill="none" stroke="#5DCAA5" stroke-width="9" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#F2B04D"/></svg>
+    <div class="brand" style="flex:1">Bên chén trà kể chuyện<small>WI.DUO · Đồng hành khởi sự</small></div>
+    <a class="home" href="https://claude.ai/artifact/8iUqMakJothKpbfawQgsgB" target="_blank" rel="noopener">Về trang WI.DUO ↗</a>
+  </header>
+  <div class="bar" aria-hidden="true"><span id="bar"></span></div>
+  <div class="meta"><span id="where"></span><span id="count"></span></div>
+  <main id="screen" aria-live="polite"></main>
+  <p class="foot">Câu trả lời được giữ tạm trên máy của bạn cho tới khi bạn bấm “Gửi cho team” ở bước cuối.</p>
+</div>
+
+<script>
+// Dán đường link Web app của Google Apps Script vào giữa hai dấu ngoặc kép bên dưới.
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzO_tmwhUaISyFU_3pw9e_f8hdqsVeqrWrTBcgQ8UgrlEb3KuOo_eM9LTTC_esgvEb73w/exec";
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null;
+const PARTS = ["Trước khi có người ngồi cùng","Lúc quyết định nhận hỗ trợ","Trong và sau khi được hỗ trợ","Mong muốn tiếp theo","Lan tỏa","Để hiểu bạn hơn"];
+const Q = [
+ {p:0,id:"q0",t:"Bạn đã được đồng hành gỡ rối điều gì?",h:"Chọn một hoặc nhiều mục, rồi viết thêm nếu muốn.",icp:["0. Đã được gỡ rối","8.5 Sử dụng"],short:1,
+  chips:["Gom: sắp xếp dữ liệu, tài liệu, ghi chép vào Notion cho gọn, dễ tìm; bớt ngại công nghệ","Soi: hiểu mình hơn, thấy bức tranh toàn cảnh, tìm ra giá trị của bản thân","Gói: đặt tên cho ý tưởng, nhìn rõ thị trường, viết những bài chia sẻ đầu tiên; có được những từ khóa đầu tiên về xây kênh nhân hiệu"]},
+ {p:0,id:"q1",t:"Hồi trước, bạn loay hoay với chuyện này như thế nào?",h:"Kể giúp mình một lần cụ thể bạn nhớ nhất.",icp:["2. Fact","4. Nỗi đau","8.1 Phát sinh nhu cầu"],short:1},
+ {p:0,id:"q2",t:"Lúc đó bạn đã thử những cách gì?",h:"Học khóa nào, hỏi ai, tự mày mò ra sao? Kết quả thế nào?",icp:["8.2 Cân nhắc","4. Nỗi đau"]},
+ {p:0,id:"q3",t:"Điều gì đã làm bạn thấy khó nhất? Bạn có từng định bỏ cuộc không?",h:"Nếu có, điều gì đã giữ bạn ở lại?",icp:["4. Nỗi đau"],short:1},
+ {p:0,id:"q4",t:"Nếu cứ để mọi thứ như vậy, bạn lo nhất điều gì sẽ xảy ra?",h:"",icp:["4. Nỗi đau"]},
+ {p:0,id:"q5",t:"Có lúc nào bạn thấy mình chậm hơn mọi người, hay ngại hỏi vì sợ người khác nghĩ gì không?",h:"Câu này không bắt buộc. Bạn muốn kể thì kể.",opt:1,icp:["4. Nỗi đau"]},
+ {p:1,id:"q6",t:"Bạn biết tới việc được kèm từ đâu, ai giới thiệu?",h:"",icp:["8.3 Touchpoint"]},
+ {p:1,id:"q7",t:"Trước khi đồng ý, bạn có ngần ngại điều gì không?",h:"Ví dụ: thời gian, công nghệ, sợ làm phiền người khác, hay chưa tin.",icp:["5. Trở ngại & phản đối"],short:1},
+ {p:1,id:"q8",t:"Điều gì khiến bạn quyết định “thôi, thử xem”?",h:"",icp:["8.4 Quyết định","4. Nỗi đau"]},
+ {p:1,id:"q9",t:"Giả sử buổi đó có thu phí, bạn thấy mức nào là hợp lý?",h:"Điều gì làm bạn sẵn lòng, điều gì làm bạn chần chừ?",icp:["1.2 Mức sẵn sàng đầu tư","5. Trở ngại & phản đối"]},
+ {p:2,id:"q10",t:"Trong buổi, khoảnh khắc nào bạn nhớ nhất? Lúc nào bạn thấy “à, mình làm được”?",h:"",icp:["4. Nỗi đau","8.5 Sử dụng"]},
+ {p:2,id:"q11",t:"Sau khi được hỗ trợ, bạn đã làm được gì mà trước đó chưa làm?",h:"Có con số nào không: số bài viết, số hiện thực, số giờ đỡ mất…",icp:["2. Fact"],short:1},
+ {p:2,id:"q12",t:"Nếu phải nói với một người bạn “buổi đó cho mình…”, bạn sẽ nói thế nào?",h:"",icp:["7. Lý do thật sự","9. Ngôn ngữ thật"],short:1},
+ {p:2,id:"q13",t:"Có điều gì bạn chưa hài lòng, hay mong buổi đó khác đi?",h:"",icp:["5. Trở ngại & phản đối"]},
+ {p:3,id:"q14",t:"3–6 tháng tới bạn muốn đạt được điều gì? Còn 1–3 năm nữa, bạn muốn mình trở thành người như thế nào?",h:"",icp:["3. Mục tiêu & giá trị"],short:1},
+ {p:3,id:"q15",t:"Khi đạt được điều đó, điều gì sẽ thay đổi trong công việc, gia đình, hay cách bạn nhìn chính mình?",h:"",icp:["7. Lý do thật sự"]},
+ {p:3,id:"q16",t:"Bạn muốn ai là người đầu tiên nhìn thấy sự thay đổi đó?",h:"",icp:["4. Nỗi đau"]},
+ {p:3,id:"q7b",t:"Team đang hỗ trợ trên tinh thần thiện nguyện, không thu phí. Với bạn, cách nào khiến bạn thấy thoải mái nhất khi nhận hỗ trợ?",h:"Không có lựa chọn nào đúng hay sai. Câu trả lời giúp team chọn cách vận hành để cả người nhận lẫn người trao đều thấy nhẹ lòng.",icp:["1.2 Mức sẵn sàng đầu tư","5. Trở ngại & phản đối"],short:1,one:1,
+  chips:["Thiện nguyện, không thu phí như hiện nay là thoải mái nhất","Tôi muốn góp tùy tâm vào một quỹ cộng đồng, để tiếp sức cho người đi sau","Tôi thấy yên tâm hơn nếu có một mức phí rõ ràng","Cách khác (bạn kể thêm bên dưới)"]},
+ {p:4,id:"q16b",t:"Nếu bạn là người đi sau, mới bắt đầu, bạn muốn sự hỗ trợ bắt đầu như thế nào?",h:"Chọn những cách bạn thấy hợp, rồi viết thêm nếu muốn.",icp:["8.3 Touchpoint","10. Gợi ý cách bắt đầu"],short:1,
+  chips:["Được hướng dẫn thiết kế một không gian làm việc số gọn gàng, ngăn nắp","Được hướng dẫn nạp dữ liệu về bản thân","Được hỗ trợ thấu hiểu bản thân hơn","Được hỗ trợ sử dụng các trợ lý AI","Được lắng nghe và cùng gỡ rối những trở ngại hiện có khi học tập, hay khi bắt tay vào dự án của mình","Được tham gia những buổi Zoom nhóm nhỏ, vừa nghe chia sẻ về tư duy, vừa được cầm tay chỉ việc","Được xem một video ngắn trước, rồi mới gặp người đồng hành","Được nhận một danh sách những việc cần hoàn thiện, để tự làm theo","Được nhìn thấy sơ đồ toàn cảnh: mình đang ở đâu và cần đi tiếp những bước nào"]},
+ {p:4,id:"q16c",t:"Sau khi đã nhận được sự trợ giúp, bạn có sẵn sàng chia sẻ lại những điều mình học được cho người khác không?",h:"Chọn một câu gần với bạn nhất, rồi kể thêm nếu muốn.",icp:["8.6 Trung thành & giới thiệu"],short:1,one:1,
+  chips:["Vâng, tôi đã chuyển giao, hướng dẫn cho người khác","Có, tôi muốn và sẽ làm","Không, tôi chưa sẵn sàng"]},
+ {p:4,id:"q17",t:"Bạn đã giới thiệu ai, hay đã quay lại kèm ai chưa? Điều gì khiến bạn làm vậy?",h:"",icp:["8.6 Trung thành & giới thiệu"]},
+ {p:4,id:"q18",t:"Theo bạn, ai rất cần một buổi như vậy? Ai có thể cần? Ai thì chưa hợp?",h:"",icp:["6. Phải / Có thể / Không nên"]},
+ {p:4,id:"q19",t:"Khi nghe người khác nói về AI hay “xây nhân hiệu”, từ nào làm bạn thấy ngợp hay khó chịu? Từ nào làm bạn thấy dễ gần?",h:"",icp:["9. Ngôn ngữ thật"]},
+ {p:5,id:"q20",t:"Một vài thông tin để hiểu bạn hơn",h:"Bạn điền giúp các ô có dấu *. Thu nhập, email và Facebook thì không bắt buộc. Số Zalo, email chỉ dùng để mình liên lạc lại với bạn, không chia sẻ cho ai khác.",demo:1,icp:["1.1 Nhân khẩu học"],short:1}
+];
+const DEMO = [
+ {k:"gender",l:"Giới tính",req:1,opts:["Nữ","Nam","Khác"]},
+ {k:"age",l:"Độ tuổi",req:1,opts:["Dưới 35","35–44","45–54","55–64","Từ 65"]},
+ {k:"place",l:"Nơi sống (tỉnh, thành phố hoặc nước)",req:1,text:1},
+ {k:"job",l:"Nghề hoặc chuyên môn",req:1,text:1},
+ {k:"family",l:"Gia đình",req:1,opts:["Độc thân","Đã lập gia đình, chưa có con","Có con nhỏ (dưới 12 tuổi)","Con đã lớn"]},
+ {k:"income",l:"Thu nhập mỗi tháng (khoảng, không bắt buộc)",opts:["Dưới 10 triệu","10–20 triệu","20–40 triệu","Trên 40 triệu","Không muốn trả lời"]},
+ {k:"zalo",l:"Số điện thoại Zalo",req:1,text:1,type:"tel",c:1},
+ {k:"email",l:"Email (nếu có)",text:1,type:"email",c:1},
+ {k:"fb",l:"Link Facebook (nếu có)",text:1,type:"url",c:1}
+];
+const KEY="widuo-icp-draft";
+let st={i:-1,mode:"full",a:{},d:{},name:"",consent:false};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&typeof s==="object")st=Object.assign(st,s)}catch(e){}
+st.mode="short";
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+const $=s=>document.querySelector(s), screen=$("#screen");
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function list(){return st.mode==="short"?Q.filter(q=>q.short):Q}
+
+function progress(){
+  const L=list(), n=L.length;
+  if(st.i<0){$("#bar").style.width="0%";$("#where").textContent="Lời mở đầu";$("#count").textContent=n+" câu";return}
+  if(st.i>=n){$("#bar").style.width="100%";$("#where").textContent="Hoàn thành";$("#count").textContent="";return}
+  $("#bar").style.width=Math.round(st.i/n*100)+"%";
+  $("#where").textContent="Phần "+(L[st.i].p+1)+" · "+PARTS[L[st.i].p];
+  $("#count").textContent="Câu "+(st.i+1)+" / "+n;
+}
+
+function intro(){
+  screen.innerHTML=`<section class="card">
+    <span class="part">Lời mở đầu</span>
+    <h1>Cùng ngồi lại, kể nhau nghe chặng đường vừa qua</h1>
+    <p class="lead">Chào bạn, mình là Alina Trần Ngọc Ánh (N5 lớp 300DNS), đại diện team hỗ trợ đã đồng hành cùng bạn những ngày vừa qua. Có thể là lúc cùng gỡ rối, dọn dẹp Notion; lúc nạp dữ liệu về bản thân; lúc làm quen với các trợ lý AI; những buổi khai vấn cùng Coach Nội Tâm để hiểu mình hơn; hay lúc cùng đặt tên cho ý tưởng, soi thị trường và viết những bài chia sẻ đầu tiên.</p>
+    <p class="lead">Mỗi người đi một chặng khác nhau. Dù bạn đã đi cùng team ở chặng nào, bạn cũng chính là người mình muốn được nghe kể.</p>
+    <p class="lead">Giờ team đang chuẩn bị một nền tảng mang tên WI.DUO, để những người đi sau, trong lớp và cả ngoài lớp, cũng có một người ngồi cùng như thế. Bạn là người hiểu rõ nhất sự hỗ trợ ấy đã giúp được gì, và chỗ nào còn chưa ổn. Mình muốn nghe đúng lời bạn, kể cả điều bạn chưa hài lòng, để chỉnh lại cách đồng hành cho người đến sau.</p>
+    <p class="lead">Không có câu trả lời đúng hay sai. Bạn cứ kể tự nhiên, như đang ngồi uống trà với nhau.</p>
+    <label>Tên bạn muốn được gọi<input type="text" id="nm" value="${esc(st.name)}" placeholder="Ví dụ: chị Lương Hạnh" autocomplete="name"></label>
+    <p class="lead" style="font-size:14.5px">11 câu hỏi · khoảng 10 phút · gõ hoặc nói đều được.</p>
+    <label class="check"><input type="checkbox" id="cs" ${st.consent?"checked":""}> Tôi đồng ý để người phỏng vấn dùng câu trả lời này để hiểu khách hàng và liên hệ lại với tôi. Lời của tôi chỉ được trích công khai khi tôi đồng ý thêm một lần nữa.</label>
+    <p class="err" id="er" hidden></p>
+    <div class="row"><span></span><button class="btn" id="go">Bắt đầu</button></div></section>`;
+  $("#nm").oninput=e=>{st.name=e.target.value;save()};
+  $("#cs").onchange=e=>{st.consent=e.target.checked;$("#er").hidden=true;save()};
+  $("#go").onclick=()=>{if(!st.consent){$("#er").textContent="Đánh dấu ô đồng ý ở trên để bắt đầu.";$("#er").hidden=false;return}st.i=0;save();render()};
+}
+
+function question(){
+  const L=list(), q=L[st.i];
+  const body = q.demo ? `<div class="grid2">${DEMO.map(f=>f.text
+      ? `<label>${f.l}${f.req?" *":""}<input type="${f.type||"text"}" data-d="${f.k}" value="${esc(st.d[f.k])}" ${f.req?'aria-required="true"':""}></label>`
+      : `<label>${f.l}${f.req?" *":""}<select data-d="${f.k}" ${f.req?'aria-required="true"':""}><option value="">Chọn…</option>${f.opts.map(o=>`<option ${st.d[f.k]===o?"selected":""}>${o}</option>`).join("")}</select></label>`).join("")}</div>
+      <p class="err" id="derr" hidden></p>`
+    : `${q.chips?`<div class="chips">${q.chips.map((c,k)=>`<button class="chip" data-c="${k}" aria-pressed="${((st.c||{})[q.id]||[]).includes(c)}">${c}</button>`).join("")}</div>`:""}
+       <textarea id="ans" aria-label="Câu trả lời của bạn" placeholder="${q.chips?"Hoặc bạn mô tả theo cách của mình…":"Bạn cứ viết hoặc nói như đang kể cho một người bạn…"}">${esc(st.a[q.id])}</textarea>
+       ${SR?`<button class="mic" id="mic" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span>Bấm để nói</span></button>
+       <p class="mic-note" id="micnote">Bấm nút, cho phép dùng micro, rồi nói tiếng Việt bình thường. Bấm lần nữa để dừng.</p>`:""}
+       <details class="voice"${SR?' hidden':''}><summary><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Muốn nói thay vì gõ?</summary>
+       <div class="voice-body"><p>Bấm vào ô trả lời ở trên, rồi bật micro của chính bàn phím:</p>
+       <ul><li><b>Điện thoại Android:</b> bấm biểu tượng micro trên bàn phím Gboard.</li>
+       <li><b>iPhone:</b> bấm biểu tượng micro cạnh phím cách.</li>
+       <li><b>Máy tính Windows:</b> nhấn phím Windows + H.</li>
+       <li><b>Máy Mac:</b> nhấn phím Fn hai lần (hoặc phím micro).</li></ul>
+       <p>Bạn nói tiếng Việt bình thường, chữ sẽ tự hiện vào ô. Nói xong đọc lại, sửa vài chữ máy nghe nhầm là được.</p></div></details>`;
+  screen.innerHTML=`<section class="card">
+    <span class="part">Phần ${q.p+1} · ${PARTS[q.p]}</span>
+    <h1>${q.t}</h1>
+    ${q.h?`<p class="lead">${q.h}</p>`:""}
+    ${q.opt?`<span class="opt-tag">Không bắt buộc</span>`:""}
+    ${body}
+    <div class="row"><button class="ghost" id="bk">← ${st.i===0?"Lời mở đầu":"Câu trước"}</button>
+      <div style="display:flex;gap:8px;align-items:center">${q.opt||q.demo?"":`<button class="ghost" id="sk">Bỏ qua</button>`}<button class="btn" id="nx">${st.i===L.length-1?"Xem bản tổng hợp":"Câu tiếp"}</button></div></div></section>`;
+  const ta=$("#ans"); if(ta){ta.oninput=e=>{st.a[q.id]=e.target.value;save()}; if(!q.chips) ta.focus({preventScroll:true})}
+  const mic=$("#mic");
+  if(mic&&ta) mic.onclick=()=>{
+    if(rec){rec.stop();return}
+    rec=new SR(); rec.lang="vi-VN"; rec.continuous=true; rec.interimResults=true;
+    const base=ta.value?ta.value.replace(/\s*$/," "):""; let finalTxt="";
+    rec.onresult=e=>{let interim="";for(let i=e.resultIndex;i<e.results.length;i++){const r=e.results[i];if(r.isFinal)finalTxt+=r[0].transcript+" ";else interim+=r[0].transcript}
+      ta.value=base+finalTxt+interim; st.a[q.id]=ta.value; save()};
+    rec.onerror=e=>{$("#micnote").textContent=e.error==="not-allowed"?"Máy chưa cho dùng micro. Bạn cho phép micro trong trình duyệt, hoặc dùng nút micro trên bàn phím điện thoại.":"Micro tạm dừng. Bạn bấm lại để nói tiếp."};
+    rec.onend=()=>{rec=null;mic.setAttribute("aria-pressed","false");mic.querySelector("span").textContent="Bấm để nói"};
+    rec.start(); mic.setAttribute("aria-pressed","true"); mic.querySelector("span").textContent="Đang nghe… bấm để dừng";
+  };
+  screen.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{
+    st.c=st.c||{}; const cur=st.c[q.id]||[], v=q.chips[+b.dataset.c];
+    st.c[q.id]=cur.includes(v)?cur.filter(x=>x!==v):(q.one?[v]:cur.concat(v));
+    screen.querySelectorAll("[data-c]").forEach(x=>x.setAttribute("aria-pressed",st.c[q.id].includes(q.chips[+x.dataset.c]))); save();
+  });
+  screen.querySelectorAll("[data-d]").forEach(el=>el.oninput=el.onchange=e=>{st.d[el.dataset.d]=e.target.value;save();const de=$("#derr");if(de)de.hidden=true});
+  $("#bk").onclick=()=>{st.i--;save();render()};
+  const sk=$("#sk"); if(sk) sk.onclick=()=>{st.i++;save();render()};
+  $("#nx").onclick=()=>{
+    if(q.demo){ const miss=DEMO.filter(f=>f.req && !String(st.d[f.k]||"").trim()).map(f=>f.l.replace(/ \(.*\)$/,"").toLowerCase());
+      if(miss.length){const de=$("#derr");de.textContent="Bạn điền giúp: "+miss.join(", ")+".";de.hidden=false;return} }
+    st.i++;save();render()};
+}
+
+function summaryText(){
+  const L=list(), groups={};
+  L.forEach(q=>{ if(q.demo) return; const picks=((st.c||{})[q.id]||[]); let a=(st.a[q.id]||"").trim();
+    if(picks.length) a="Chọn: "+picks.join("; ")+(a?"\n"+a:""); if(!a) return;
+    q.icp.forEach(k=>{(groups[k]=groups[k]||[]).push({q:q.t,a})}) });
+  const demo=DEMO.filter(f=>!f.c).map(f=>st.d[f.k]?`${f.l}: ${st.d[f.k]}`:"").filter(Boolean);
+  const contact=DEMO.filter(f=>f.c).map(f=>st.d[f.k]?`${f.l.replace(/ \(.*\)$/,"")}: ${st.d[f.k]}`:"").filter(Boolean);
+  const order=["0. Đã được gỡ rối","1.1 Nhân khẩu học","1.2 Mức sẵn sàng đầu tư","2. Fact","3. Mục tiêu & giá trị","4. Nỗi đau","5. Trở ngại & phản đối","6. Phải / Có thể / Không nên","7. Lý do thật sự","8.1 Phát sinh nhu cầu","8.2 Cân nhắc","8.3 Touchpoint","8.4 Quyết định","8.5 Sử dụng","8.6 Trung thành & giới thiệu","9. Ngôn ngữ thật","10. Gợi ý cách bắt đầu"];
+  let txt=`BÊN CHÉN TRÀ KỂ CHUYỆN · WI.DUO\nNgười kể: ${st.name||"(chưa ghi tên)"}\nĐồng ý dùng để hiểu khách hàng: có\n`;
+  let html="";
+  const give=((st.c||{}).q16c||[])[0], qg=Q.find(q=>q.id==="q16c");
+  if(give && qg.chips.indexOf(give)<2){
+    txt+=`\n★ SẴN SÀNG ĐỒNG HÀNH, TRAO GIỜ HỖ TRỢ NGƯỜI ĐI SAU (${give})\n`;
+    html+=`<p style="background:#FDF1DC;border-left:4px solid #F2B04D;padding:10px 14px;border-radius:8px;font-weight:600;margin:0 0 12px">★ Sẵn sàng đồng hành, trao giờ hỗ trợ người đi sau<br><span style="font-weight:400">${esc(give)}</span></p>`;
+  }
+  if(contact.length){ txt+=`\n[Liên hệ]\n`+contact.join("\n")+"\n"; html+=`<h2>Liên hệ</h2>`+contact.map(d=>`<p>${esc(d)}</p>`).join("") }
+  order.forEach(k=>{
+    if(k==="1.1 Nhân khẩu học"){ txt+=`\n[${k}]\n`+(demo.length?demo.join("\n"):"(bỏ trống)")+"\n";
+      html+=`<h2>${k}</h2>`+(demo.length?demo.map(d=>`<p>${esc(d)}</p>`).join(""):`<p class="empty">Bỏ trống</p>`); return }
+    const g=groups[k]; if(!g) return;
+    txt+=`\n[${k}]\n`+g.map(x=>`• ${x.q}\n  "${x.a}"`).join("\n")+"\n";
+    html+=`<h2>${k}</h2>`+g.map(x=>`<p class="q">${esc(x.q)}</p><p>“${esc(x.a)}”</p>`).join("");
+  });
+  return {txt,html,give:(give && qg.chips.indexOf(give)<2)};
+}
+
+function rowData(txt,star){
+  const pick=id=>((st.c||{})[id]||[]).join("; "), ans=id=>(st.a[id]||"").trim(), d=k=>st.d[k]||"";
+  return [
+    ["Thời gian", new Date().toLocaleString("vi-VN")],
+    ["Tên", st.name||""],
+    ["★ Sẵn sàng đồng hành", star?"★":""],
+    ["1. Đã được gỡ rối (chọn)", pick("q0")], ["1. Kể thêm", ans("q0")],
+    ["2. Hồi trước loay hoay thế nào", ans("q1")],
+    ["3. Khó nhất / có định bỏ cuộc", ans("q3")],
+    ["4. Ngần ngại trước khi đồng ý", ans("q7")],
+    ["5. Làm được gì sau hỗ trợ", ans("q11")],
+    ["6. Nói với bạn bè", ans("q12")],
+    ["7. Mục tiêu 3–6 tháng, 1–3 năm", ans("q14")],
+    ["8. Cách nhận hỗ trợ thoải mái (chọn)", pick("q7b")], ["8. Kể thêm", ans("q7b")],
+    ["9. Muốn hỗ trợ bắt đầu thế nào (chọn)", pick("q16b")], ["9. Kể thêm", ans("q16b")],
+    ["10. Sẵn sàng chia sẻ lại (chọn)", pick("q16c")], ["10. Kể thêm", ans("q16c")],
+    ["Giới tính", d("gender")], ["Độ tuổi", d("age")], ["Nơi sống", d("place")], ["Nghề / chuyên môn", d("job")],
+    ["Gia đình", d("family")], ["Thu nhập", d("income")], ["Zalo", d("zalo")], ["Email", d("email")], ["Facebook", d("fb")],
+    ["Bản tổng hợp", txt]
+  ];
+}
+
+function done(){
+  const {txt,html,give}=summaryText();
+  screen.innerHTML=`<section class="card">
+    <span class="part">Bước cuối</span>
+    <h1>Chén trà của bạn đã đầy. Cảm ơn bạn đã kể.</h1>
+    <p class="lead">Dưới đây là câu trả lời của bạn. Bạn đọc lại một lượt, rồi bấm “Gửi cho team” là xong.</p>
+    <div class="out sum">${html||'<p class="empty">Bạn chưa trả lời câu nào.</p>'}</div>
+    <p class="ok" id="ok" hidden></p>
+    <p class="err" id="se" hidden></p>
+    <textarea id="raw" readonly hidden aria-label="Bản tóm tắt để sao chép">${esc(txt)}</textarea>
+    <div class="row"><button class="ghost" id="bk">← Sửa câu trả lời</button><button class="btn" id="sd">${st.sent?"Đã gửi ✓":"Gửi cho team"}</button></div>
+    <div class="row"><span class="mic-note">Không gửi được? Bạn sao chép rồi dán qua Zalo.</span><button class="ghost" id="cp">Sao chép</button></div>
+    <div class="row"><span></span><button class="ghost" id="rs">Xóa và bắt đầu lại</button></div></section>`;
+  $("#bk").onclick=()=>{st.i=list().length-1;save();render()};
+  $("#cp").onclick=async()=>{
+    const ok=$("#ok");
+    try{await navigator.clipboard.writeText(txt);ok.textContent="Đã sao chép. Giờ bạn dán vào tin nhắn là xong.";ok.hidden=false}
+    catch(e){const r=$("#raw");r.hidden=false;r.style.minHeight="220px";r.focus();r.select();ok.textContent="Máy chưa cho sao chép tự động. Phần chữ bên dưới đã được chọn sẵn, bạn bấm giữ hoặc Ctrl+C để sao chép.";ok.hidden=false}
+  };
+  $("#sd").onclick=async()=>{
+    const b=$("#sd"), ok=$("#ok"), se=$("#se"); se.hidden=true;
+    if(!/^https:\/\/script\.google\.com\//.test(SHEET_URL)){se.textContent="Phiếu chưa được nối với bảng dữ liệu. Bạn bấm “Sao chép” và gửi qua Zalo giúp mình nhé.";se.hidden=false;return}
+    b.disabled=true; b.textContent="Đang gửi…";
+    try{
+      await fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({rows:rowData(txt,give)})});
+      st.sent=true; save(); b.textContent="Đã gửi ✓";
+      ok.textContent="Đã gửi tới team. Cảm ơn bạn đã dành thời gian kể chuyện!"; ok.hidden=false;
+    }catch(e){b.disabled=false;b.textContent="Gửi lại";se.textContent="Chưa gửi được, có thể do mạng. Bạn thử lại, hoặc bấm “Sao chép” và gửi qua Zalo.";se.hidden=false}
+  };
+  $("#rs").onclick=()=>{ if(!$("#rs").dataset.sure){$("#rs").dataset.sure=1;$("#rs").textContent="Bấm lần nữa để xóa hết";return}
+    st={i:-1,mode:"short",a:{},c:{},d:{},name:"",consent:false};save();render()};
+}
+
+function render(){ if(rec){try{rec.stop()}catch(e){} rec=null} const n=list().length; if(st.i>n) st.i=n; progress(); if(st.i<0) intro(); else if(st.i>=n) done(); else question(); window.scrollTo({top:0}); }
+render();
+</script>
+</body>
+</html>
